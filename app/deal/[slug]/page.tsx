@@ -42,7 +42,8 @@ export default async function DealPage({ params }: { params: { slug: string } })
       <div className="rounded-2xl bg-white p-4 shadow-sm">
         {d.image && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={d.image} alt={d.titre} className="mx-auto max-h-72 object-contain" />
+          <img src={d.image} alt={d.titre} referrerPolicy="no-referrer"
+               className="mx-auto max-h-72 object-contain" />
         )}
       </div>
 
