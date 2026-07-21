@@ -4,7 +4,7 @@ import { supabase } from '@/lib/supabase';
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const base = 'https://promoz.vercel.app';
+  const base = 'https://kadoprix.vercel.app';
   const [{ data: deals }, { data: cats }] = await Promise.all([
     supabase.from('deals').select('slug, updated_at').eq('statut', 'live').limit(2000),
     supabase.from('categories').select('slug'),
