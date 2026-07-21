@@ -6,7 +6,7 @@ import { db, upsertDeal } from './lib.mjs';
 
 const API = 'https://www.cheapshark.com/api/1.0';
 const PAGES = 3;          // 3 x 60 = 180 deals max par run
-const REDUCTION_MIN = 30; // on ne garde que les vraies promos
+const REDUCTION_MIN = 20; // on ne garde que les vraies promos
 const attente = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // --- Taux USD -> EUR (API BCE gratuite, sans clé) avec repli si indisponible
