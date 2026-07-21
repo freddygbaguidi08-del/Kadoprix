@@ -51,6 +51,7 @@ export async function upsertDeal(d) {
   const row = {
     slug,
     merchant_id: d.merchant_id ?? null,
+    categorie_id: d.categorie_id ?? null,
     source: d.source ?? 'feed',
     titre: d.titre.slice(0, 200),
     description: d.description ?? null,
