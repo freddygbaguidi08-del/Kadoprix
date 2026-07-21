@@ -8,7 +8,7 @@ const fmt = (n: number, devise: string) =>
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const { data: d } = await supabase.from('deals').select('titre, pct_reduction').eq('slug', params.slug).single();
-  return d ? { title: `${d.titre} (-${d.pct_reduction ?? 0}%) — Promoz` } : {};
+  return d ? { title: `${d.titre} (-${d.pct_reduction ?? 0}%) — Kado Prix` } : {};
 }
 
 export default async function DealPage({ params }: { params: { slug: string } }) {
@@ -31,7 +31,7 @@ export default async function DealPage({ params }: { params: { slug: string } })
     offers: {
       '@type': 'Offer', price: d.prix, priceCurrency: d.devise,
       availability: 'https://schema.org/InStock',
-      url: `https://promoz.vercel.app/deal/${d.slug}`,
+      url: `https://kadoprix.vercel.app/deal/${d.slug}`,
     },
   };
 
@@ -75,7 +75,7 @@ export default async function DealPage({ params }: { params: { slug: string } })
         )}
         <p className="text-sm text-slate-500">
           Chez <b>{(d as any).merchants?.nom ?? 'le marchand'}</b> · fiabilité {(d as any).merchants?.fiabilite_score ?? '—'}/10
-          · 🌡️ {d.temperature}° · Score Promoz <b>{d.score_promoz}/100</b>
+          · 🌡️ {d.temperature}° · Score Kado <b>{d.score_promoz}/100</b>
         </p>
       </div>
 
