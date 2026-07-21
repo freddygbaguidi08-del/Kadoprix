@@ -59,7 +59,7 @@ async function run() {
 
   let total = 0;
   for (let page = 0; page < PAGES; page++) {
-    const url = `${API}/deals?onSale=1&sortBy=Savings&pageSize=60&pageNumber=${page}`;
+    const url = `${API}/deals?onSale=1&sortBy=Deal%20Rating&pageSize=60&pageNumber=${page}&lowerPrice=3&metacritic=70`;
     const res = await fetch(url);
     if (!res.ok) {
       console.error(`  ✗ page ${page} : HTTP ${res.status}`);
