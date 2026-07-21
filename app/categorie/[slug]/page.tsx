@@ -10,7 +10,7 @@ export default async function Categorie({ params, searchParams }:
     .select('id, nom').eq('slug', params.slug).single();
   if (!cat) notFound();
 
-  let q = supabase.from('deals').select('*').eq('statut', 'live');
+  let q = supabase.from('deals').select('*').eq('statut', 'live').eq('categorie_id', cat.id);
   if (searchParams.min) q = q.gte('pct_reduction', Number(searchParams.min));
   const tri = searchParams.tri ?? 'chauds';
   if (tri === 'recents') q = q.order('created_at', { ascending: false });
