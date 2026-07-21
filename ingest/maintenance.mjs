@@ -47,8 +47,11 @@ async function alertesTelegram() {
     const { data: hits } = await q;
     if (!hits?.length) continue;
 
+   const site = 'https://kadoprix.vercel.app';
     const texte = hits.map((d) =>
-      `🔥 ${d.titre}\n💶 ${d.prix} ${d.devise} (-${d.pct_reduction}%)\nhttps://kadoprix.vercel.app/deal/${d.slug}`
+      '🔥 ' + d.titre + '\n💶 ' + d.prix + ' ' + d.devise +
+      ' (-' + d.pct_reduction + '%)\n' + site + '/deal/' + d.slug
+    ).join('\n\n');
 
     await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
