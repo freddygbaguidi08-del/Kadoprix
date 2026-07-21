@@ -3,7 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Promoz — Toutes les promos du web, un seul endroit',
+  title: 'Kado Prix — Toutes les promos du web, un seul endroit',
   description:
     'Des promos vérifiées 365 jours par an : high-tech, mode, maison, voyages… France, Afrique francophone et Canada.',
 };
@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="sticky top-0 z-50 bg-white shadow-sm">
           <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
             <Link href="/" className="text-2xl font-black tracking-tight">
-              Promo<span className="text-promo">z</span>
+              Kado<span className="text-promo">Prix</span>
             </Link>
             <form action="/recherche" className="flex-1">
               <input
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </header>
         <main className="mx-auto max-w-6xl px-4 py-6">{children}</main>
         <footer className="mt-12 border-t bg-white py-8 text-center text-xs text-slate-500">
-          <p>Promoz — Certains liens sont affiliés : ils financent le service sans surcoût pour vous.</p>
+          <p>Kado Prix — Certains liens sont affiliés : ils financent le service sans surcoût pour vous.</p>
           <p className="mt-1">Prix vérifiés quotidiennement, susceptibles d'évoluer chez le marchand.</p>
         </footer>
       </body>
