@@ -12,15 +12,15 @@ export default function Confidentialite() {
       <p>
         Cette page décrit les données que Kado Prix collecte, l&apos;usage qui en est fait et
         les droits dont vous disposez. Elle est rédigée en langage clair : si un point vous
-        semble ambigu, écrivez à <b>[email de contact]</b>.
+        semble ambigu, écrivez à <b>contact@kdoprix.com</b>.
       </p>
 
       <section className="space-y-2">
         <h2 className="text-lg font-bold">Responsable du traitement</h2>
         <p>
-          <b>[PRÉNOM NOM ou DÉNOMINATION SOCIALE]</b>, éditeur du site — coordonnées complètes
+          <b>KADOPRIX</b>, éditeur du site — coordonnées complètes
           sur la page Mentions légales. Contact pour toute question relative aux données :
-          <b> [email de contact]</b>.
+          <b> contact@kdoprix.com</b>.
         </p>
       </section>
 
@@ -104,7 +104,7 @@ export default function Confidentialite() {
           retirer votre consentement à tout moment.
         </p>
         <p>
-          Pour les exercer, écrivez à <b>[email de contact]</b>. Une réponse vous sera apportée
+          Pour les exercer, écrivez à <b>contact@kdoprix.com</b>. Une réponse vous sera apportée
           sous un mois.
         </p>
         <p>
