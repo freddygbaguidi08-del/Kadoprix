@@ -46,7 +46,7 @@ export default function DealCard({ deal }: { deal: Deal }) {
         </div>
         <div className="flex items-center justify-between text-xs text-slate-500">
           <span className={deal.temperature >= 100 ? 'font-bold text-promo' : ''}>🌡️ {deal.temperature}°</span>
-          <span>Score {deal.score_promoz}/100</span>
+          <span>Kado {deal.score_promoz}/100</span>
         </div>
       </div>
     </Link>
