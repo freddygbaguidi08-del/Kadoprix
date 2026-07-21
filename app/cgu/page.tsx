@@ -70,7 +70,7 @@ export default function CGU() {
         </p>
         <p>
           Kado Prix agit en qualité d&apos;hébergeur des contenus publiés par ses membres. Tout
-          contenu manifestement illicite peut être signalé à <b>[email de contact]</b> et sera
+          contenu manifestement illicite peut être signalé à <b>contact@kdoprix.com</b> et sera
           retiré promptement après examen.
         </p>
       </section>
