@@ -16,7 +16,7 @@
 import * as cheerio from 'cheerio';
 import { db, upsertDeal, merchantIdBySlug } from './lib.mjs';
 
-const UA = 'PromozBot/1.0 (+https://promoz.vercel.app/bot)'; // identifiable = éthique
+const UA = 'KadoPrixBot/1.0 (+https://kadoprix.vercel.app/bot)'; // identifiable = éthique
 const attente = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const lireSel = ($el, sel) => {
