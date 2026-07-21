@@ -2,4 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-body { @apply bg-fond text-encre antialiased; }
+@layer base {
+  body {
+    @apply bg-canvas text-ink antialiased;
+    font-feature-settings: 'cv05', 'cv08';
+  }
+  /* Les prix doivent s'aligner verticalement dans une grille */
+  .tnum { font-variant-numeric: tabular-nums; }
+  /* Accessibilité : focus visible partout */
+  :focus-visible { @apply outline-none ring-2 ring-promo ring-offset-2 ring-offset-canvas; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
