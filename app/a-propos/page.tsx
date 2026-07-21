@@ -66,7 +66,7 @@ export default function APropos() {
         <h2 className="text-lg font-bold">Signaler une erreur</h2>
         <p className="text-sm leading-relaxed">
           Un prix inexact, une offre expirée, une réduction douteuse ? Écrivez à
-          <b> [email de contact]</b>. Les signalements sont traités rapidement : la fiabilité
+          <b> contact@kdoprix.com</b>. Les signalements sont traités rapidement : la fiabilité
           du catalogue est ce qui fait tenir le projet.
         </p>
       </section>
