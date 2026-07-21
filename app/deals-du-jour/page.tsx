@@ -3,7 +3,7 @@ import DealCard, { Deal } from '@/components/DealCard';
 
 export const revalidate = 900;
 export const metadata = {
-  title: 'Deals du jour — Promoz',
+ title: 'Deals du jour — Kado Prix',
   description: 'Les meilleures promos publiées aujourd’hui, vérifiées et classées par score.',
 };
 
