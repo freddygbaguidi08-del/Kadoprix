@@ -48,8 +48,7 @@ async function alertesTelegram() {
     if (!hits?.length) continue;
 
     const texte = hits.map((d) =>
-      `🔥 ${d.titre}\n💶 ${d.prix} ${d.devise} (-${d.pct_reduction}%)\nhttps://promoz.vercel.app/deal/${d.slug}`
-    ).join('\n\n');
+      `🔥 ${d.titre}\n💶 ${d.prix} ${d.devise} (-${d.pct_reduction}%)\nhttps://kadoprix.vercel.app/deal/${d.slug}`
 
     await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
       method: 'POST',
