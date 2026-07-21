@@ -21,6 +21,7 @@ export default function DealCard({ deal }: { deal: Deal }) {
         {deal.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={deal.image} alt={deal.titre} loading="lazy"
+                referrerPolicy="no-referrer"
                className="h-full w-full object-contain transition group-hover:scale-105" />
         ) : (
           <div className="flex h-full items-center justify-center text-4xl">🏷️</div>
