@@ -12,17 +12,17 @@ export default function MentionsLegales() {
       <section className="space-y-2">
         <h2 className="text-lg font-bold">Éditeur du site</h2>
         <p>
-          Le site Kado Prix est édité par <b>[PRÉNOM NOM ou DÉNOMINATION SOCIALE]</b>,
-          [statut juridique : micro-entreprise / EI / SASU],
+          Le site Kado Prix est édité par <b>KADOPRIX</b>,
+          statut juridique : micro-entreprise,
           immatriculé sous le numéro <b>[SIREN / SIRET / RCCM]</b>.
         </p>
         <p>
-          Siège social : <b>[adresse complète]</b><br />
-          Adresse électronique : <b>[email de contact]</b><br />
-          Téléphone : <b>[numéro]</b><br />
+          Siège social : <b>NANTES </b><br />
+          Adresse électronique : <b>contact@kdoprix.com</b><br />
+          Téléphone : <b>0650201564</b><br />
           Numéro de TVA intracommunautaire : <b>[le cas échéant]</b>
         </p>
-        <p>Directeur de la publication : <b>[PRÉNOM NOM]</b>.</p>
+        <p>Directeur de la publication : <b>KDO P</b>.</p>
       </section>
 
       <section className="space-y-2">
