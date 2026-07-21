@@ -78,6 +78,7 @@ async function run() {
 
       await upsertDeal({
         titre: d.title,
+        
         prix: Math.round(prixUsd * taux * 100) / 100,
         prix_barre: Math.round(normalUsd * taux * 100) / 100,
         devise: 'EUR',
@@ -85,6 +86,7 @@ async function run() {
         // URL de redirection officielle CheapShark (prévue pour l'usage tiers)
         url_source: `https://www.cheapshark.com/redirect?dealID=${d.dealID}`,
         merchant_id: stores.get(String(d.storeID)) ?? null,
+        categorie_id: cat?.id ?? null,
         fiabilite: 8,
         source: 'feed',
         pays: ['FR', 'BE', 'CA', 'BJ', 'CI', 'SN'],
@@ -100,7 +102,7 @@ async function run() {
   console.log(`[cheapshark] ${total} deals jeux importés`);
 
   // Rattache les deals sans catégorie à Gaming (via leur produit si présent)
-  if (cat) console.log(`[cheapshark] catégorie Gaming id=${cat.id}`);
+  
 }
 
 run().then(() => process.exit(0)).catch((e) => { console.error(e); process.exit(1); });
