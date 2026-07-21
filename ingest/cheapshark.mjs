@@ -82,7 +82,7 @@ async function run() {
         prix: Math.round(prixUsd * taux * 100) / 100,
         prix_barre: Math.round(normalUsd * taux * 100) / 100,
         devise: 'EUR',
-        image: d.thumb || null,
+        image: d.steamAppID           ? `https://cdn.cloudflare.steamstatic.com/steam/apps/${d.steamAppID}/header.jpg`           : (d.thumb || null),
         // URL de redirection officielle CheapShark (prévue pour l'usage tiers)
         url_source: `https://www.cheapshark.com/redirect?dealID=${d.dealID}`,
         merchant_id: stores.get(String(d.storeID)) ?? null,
