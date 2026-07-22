@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { Sparkline, verdict, type Point } from './PriceTrend';
+import BoutonListe from './BoutonListe';
 
 export type Deal = {
   id: number; slug: string; titre: string; image: string | null;
   prix: number; prix_barre: number | null; devise: string;
   pct_reduction: number | null; temperature: number;
   score_promoz: number; faux_prix_suspect: boolean;
-  code_promo: string | null; fin: string | null;
+  code_promo: string | null; fin: string | null; plateforme: string | null;
   merchants?: { nom: string } | null;
 };
 
@@ -40,6 +41,7 @@ export default function DealCard({
                  hover:-translate-y-0.5 hover:shadow-lift"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-white">
+        <BoutonListe dealId={deal.id} />
         {deal.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -65,7 +67,7 @@ export default function DealCard({
         ) : null}
 
         {joursRestants !== null && joursRestants <= 3 && joursRestants >= 0 && (
-          <span className="absolute left-3 top-3 rounded-lg bg-white/95 px-2 py-1
+          <span className="absolute left-3 top-12 rounded-lg bg-white/95 px-2 py-1
                            text-[11px] font-semibold text-warn shadow-sm">
             {joursRestants === 0 ? 'Dernier jour' : `${joursRestants} j restants`}
           </span>
@@ -73,11 +75,19 @@ export default function DealCard({
       </div>
 
       <div className="flex flex-1 flex-col gap-2 border-t border-line/60 p-3.5">
-        {deal.merchants?.nom && (
-          <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-400">
-            {deal.merchants.nom}
-          </p>
-        )}
+        <div className="flex items-center gap-1.5">
+          {deal.plateforme && (
+            <span className="rounded border border-line px-1.5 py-0.5 text-[9px] font-bold
+                             uppercase tracking-wide text-slate-500">
+              {deal.plateforme}
+            </span>
+          )}
+          {deal.merchants?.nom && (
+            <span className="truncate text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-400">
+              {deal.merchants.nom}
+            </span>
+          )}
+        </div>
 
         <h3 className="line-clamp-2 text-[13.5px] font-medium leading-snug text-ink">
           {deal.titre}
