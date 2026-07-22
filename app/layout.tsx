@@ -1,6 +1,7 @@
 import './globals.css';
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import HeaderCompte from '@/components/HeaderCompte';
 import { Bricolage_Grotesque, Inter } from 'next/font/google';
 
 const display = Bricolage_Grotesque({
@@ -20,6 +21,7 @@ const nav = [
   { href: '/', label: 'Accueil', icone: 'M3 10.5 12 3l9 7.5M5 9.5V21h14V9.5' },
   { href: '/deals-du-jour', label: 'Du jour', icone: 'M13 2 4.5 13H11l-1 9 8.5-11H12l1-9Z' },
   { href: '/recherche', label: 'Chercher', icone: 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16ZM21 21l-4.3-4.3' },
+  { href: '/ma-liste', label: 'Ma liste', icone: 'M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2m-6 9 2 2 4-4' },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -52,11 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               />
             </form>
 
-            <Link href="/deals-du-jour"
-                  className="hidden shrink-0 rounded-full bg-ink px-4 py-2 text-sm font-semibold
-                             text-white transition hover:bg-ink/85 sm:block">
-              Deals du jour
-            </Link>
+            <HeaderCompte />
           </div>
         </header>
 
