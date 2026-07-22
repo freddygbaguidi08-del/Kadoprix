@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import { prixFmt } from '@/components/DealCard';
 import Link from 'next/link';
+import BoutonListe from '@/components/BoutonListe';
 
 export const revalidate = 600;
 
@@ -61,11 +62,19 @@ export default async function DealPage({ params }: { params: { slug: string } })
         </div>
 
         <div className="space-y-4">
-          {(d as any).merchants?.nom && (
-            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400">
-              {(d as any).merchants.nom}
-            </p>
-          )}
+          <div className="flex flex-wrap items-center gap-2">
+            {d.plateforme && (
+              <span className="rounded-md border border-line px-2 py-0.5 text-[10px] font-bold
+                               uppercase tracking-wide text-slate-600">
+                {d.plateforme}
+              </span>
+            )}
+            {(d as any).merchants?.nom && (
+              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400">
+                Activation {(d as any).merchants.nom}
+              </span>
+            )}
+          </div>
           <h1 className="font-display text-2xl font-extrabold leading-tight tracking-tight">
             {d.titre}
           </h1>
@@ -120,11 +129,14 @@ export default async function DealPage({ params }: { params: { slug: string } })
             </p>
           )}
 
-          <a href={`/api/out/${d.id}`} rel="nofollow sponsored"
-             className="hidden w-full rounded-full bg-promo py-3.5 text-center font-display
-                        text-base font-extrabold text-white transition hover:brightness-110 sm:block">
-            Voir l’offre chez le marchand
-          </a>
+          <div className="hidden space-y-2 sm:block">
+            <a href={`/api/out/${d.id}`} rel="nofollow sponsored"
+               className="block w-full rounded-full bg-promo py-3.5 text-center font-display
+                          text-base font-extrabold text-white transition hover:brightness-110">
+              Voir l’offre chez le marchand
+            </a>
+            <BoutonListe dealId={d.id} variante="large" />
+          </div>
         </div>
       </div>
 
