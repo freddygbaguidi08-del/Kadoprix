@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase';
 import Grille from '@/components/Grille';
 import type { Deal } from '@/components/DealCard';
 import Link from 'next/link';
+import CarrouselCategories from '@/components/CarrouselCategories';
 
 export const revalidate = 600;
 
@@ -13,7 +14,7 @@ export default async function Home() {
       .order('score_promoz', { ascending: false }).limit(8),
     supabase.from('deals').select(SELECT).eq('statut', 'live')
       .order('created_at', { ascending: false }).limit(12),
-    supabase.from('categories').select('nom, slug, icone').is('parent_id', null).order('ordre'),
+    supabase.from('categories').select('nom, slug').is('parent_id', null).order('ordre'),
     supabase.from('deals').select('id', { count: 'exact', head: true }).eq('statut', 'live'),
   ]);
 
@@ -38,20 +39,7 @@ export default async function Home() {
 
       {/* Catégories */}
       <section>
-        <div className="-mx-4 flex gap-2.5 overflow-x-auto px-4 pb-2
-                        [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {(cats ?? []).map((c) => (
-            <Link key={c.slug} href={`/categorie/${c.slug}`}
-                  className="group flex min-w-[86px] shrink-0 flex-col items-center gap-2
-                             rounded-xl2 border border-line/70 bg-white p-3
-                             transition hover:border-ink/20 hover:shadow-card">
-              <span className="text-xl transition group-hover:scale-110">{c.icone}</span>
-              <span className="text-center text-[11px] font-medium leading-tight text-slate-600">
-                {c.nom.split(' ')[0]}
-              </span>
-            </Link>
-          ))}
-        </div>
+        <CarrouselCategories cats={cats ?? []} />
       </section>
 
       {(chauds?.length ?? 0) > 0 && (
