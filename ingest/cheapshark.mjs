@@ -26,8 +26,14 @@ async function tauxUsdEur() {
 // --- Synchronise les boutiques CheapShark dans la table merchants
 async function syncStores() {
   const r = await fetch(`${API}/stores`);
+  if (!r.ok) { console.log(`  [stores] HTTP ${r.status} — skip`); return new Map(); }
   const stores = await r.json();
   const map = new Map();
+
+  if (!Array.isArray(stores)) {
+    console.log('  [stores] réponse inattendue — skip');
+    return map;
+  }
 
   for (const s of stores) {
     if (s.isActive !== 1) continue;
