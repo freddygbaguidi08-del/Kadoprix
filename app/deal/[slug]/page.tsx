@@ -3,18 +3,27 @@ import { notFound } from 'next/navigation';
 import { prixFmt } from '@/components/DealCard';
 import Link from 'next/link';
 import BoutonListe from '@/components/BoutonListe';
+import { produitOffre, filAriane, Jsonld } from '@/lib/seo';
 
 export const revalidate = 600;
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const { data: d } = await supabase.from('deals')
-    .select('titre, pct_reduction').eq('slug', params.slug).single();
-  return d ? { title: `${d.titre}${d.pct_reduction ? ` — ${d.pct_reduction}%` : ''}` } : {};
+    .select('titre, pct_reduction, prix, devise, merchants(nom)').eq('slug', params.slug).single();
+  if (!d) return {};
+  const reduc = d.pct_reduction ? ` \u2014 ${d.pct_reduction}%` : '';
+  const chez = (d as any).merchants?.nom ? ` chez ${(d as any).merchants.nom}` : '';
+  return {
+    title: `${d.titre}${reduc}`,
+    description: `${d.titre}${chez} \u00e0 ${d.prix} ${d.devise}${reduc}. Historique de prix et v\u00e9rification de la r\u00e9duction sur Kado Prix.`,
+    alternates: { canonical: `/deal/${params.slug}` },
+    openGraph: { title: `${d.titre}${reduc}`, type: 'website' },
+  };
 }
 
 export default async function DealPage({ params }: { params: { slug: string } }) {
   const { data: d } = await supabase.from('deals')
-    .select('*, merchants(nom, fiabilite_score)')
+    .select('*, merchants(nom, slug, fiabilite_score)')
     .eq('slug', params.slug).single();
   if (!d) notFound();
 
@@ -38,19 +47,16 @@ export default async function DealPage({ params }: { params: { slug: string } })
                yNow: H - ((Number(d.prix) - min) / span) * H };
   }
 
-  const jsonLd = {
-    '@context': 'https://schema.org', '@type': 'Product',
-    name: d.titre, image: d.image ?? undefined,
-    offers: {
-      '@type': 'Offer', price: d.prix, priceCurrency: d.devise,
-      availability: 'https://schema.org/InStock',
-      url: `https://kadoprix.vercel.app/deal/${d.slug}`,
-    },
-  };
 
   return (
     <article className="mx-auto max-w-3xl">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <Jsonld data={[
+        produitOffre(d as any),
+        filAriane([
+          { nom: 'Accueil', url: '/' },
+          { nom: d.titre.slice(0, 60), url: `/deal/${d.slug}` },
+        ]),
+      ]} />
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div className="overflow-hidden rounded-xl2 bg-white p-6 shadow-card ring-1 ring-line/60">
@@ -70,9 +76,16 @@ export default async function DealPage({ params }: { params: { slug: string } })
               </span>
             )}
             {(d as any).merchants?.nom && (
-              <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400">
-                Activation {(d as any).merchants.nom}
-              </span>
+              (d as any).merchants?.slug ? (
+                <Link href={`/magasin/${(d as any).merchants.slug}`}
+                      className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400 hover:text-ink">
+                  Activation {(d as any).merchants.nom}
+                </Link>
+              ) : (
+                <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-slate-400">
+                  Activation {(d as any).merchants.nom}
+                </span>
+              )
             )}
           </div>
           <h1 className="font-display text-2xl font-extrabold leading-tight tracking-tight">
