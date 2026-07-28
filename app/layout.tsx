@@ -86,6 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="mx-auto max-w-6xl space-y-4 px-4 text-center text-xs text-slate-500">
             <nav className="flex flex-wrap justify-center gap-x-5 gap-y-2">
               <Link href="/a-propos" className="transition hover:text-ink">À propos</Link>
+              <Link href="/vendeur" className="transition hover:text-ink">Espace commerçants</Link>
               <Link href="/mentions-legales" className="transition hover:text-ink">Mentions légales</Link>
               <Link href="/confidentialite" className="transition hover:text-ink">Confidentialité</Link>
               <Link href="/cgu" className="transition hover:text-ink">Conditions d’utilisation</Link>
