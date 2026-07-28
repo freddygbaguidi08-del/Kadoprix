@@ -3,6 +3,9 @@ import Grille from '@/components/Grille';
 import type { Deal } from '@/components/DealCard';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { filAriane, listeOffres, Jsonld } from '@/lib/seo';
+import { MIN_OFFRES_INDEXABLE } from '@/lib/seo-config';
+import IconeCategorie from '@/components/IconeCategorie';
 
 export const revalidate = 900;
 
@@ -14,8 +17,23 @@ const TRIS = [
 ];
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const { data } = await supabase.from('categories').select('nom').eq('slug', params.slug).single();
-  return data ? { title: `Promotions ${data.nom}` } : {};
+  const { data: cat } = await supabase.from('categories').select('id, nom').eq('slug', params.slug).single();
+  if (!cat) return {};
+  const { count } = await supabase.from('deals')
+    .select('id', { count: 'exact', head: true })
+    .eq('statut', 'live').eq('categorie_id', cat.id);
+  const n = count ?? 0;
+  const titre = n > 0
+    ? `Promotions ${cat.nom} — ${n} offre${n > 1 ? 's' : ''} v\u00e9rifi\u00e9e${n > 1 ? 's' : ''}`
+    : `Promotions ${cat.nom}`;
+  return {
+    title: titre,
+    description: `Toutes les promotions ${cat.nom} du moment, avec historique de prix et d\u00e9tection des fausses r\u00e9ductions. Mis \u00e0 jour chaque jour.`,
+    alternates: { canonical: `/categorie/${params.slug}` },
+    openGraph: { title: titre, type: 'website' },
+    // Garde-fou : ne pas indexer une cat\u00e9gorie trop vide
+    robots: n < MIN_OFFRES_INDEXABLE ? { index: false, follow: true } : undefined,
+  };
 }
 
 export default async function Categorie({ params, searchParams }:
@@ -47,12 +65,21 @@ export default async function Categorie({ params, searchParams }:
 
   return (
     <div className="space-y-6">
+      <Jsonld data={[
+        filAriane([
+          { nom: 'Accueil', url: '/' },
+          { nom: cat.nom, url: `/categorie/${params.slug}` },
+        ]),
+        ...(deals?.length ? [listeOffres(deals)] : []),
+      ]} />
       <header className="space-y-1">
         <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-400">
           Catégorie
         </p>
-        <h1 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
-          <span className="mr-2">{cat.icone}</span>{cat.nom}
+        <h1 className="flex items-center gap-2.5 font-display text-2xl font-extrabold
+                       tracking-tight sm:text-3xl">
+          <IconeCategorie slug={params.slug} className="h-7 w-7 shrink-0 text-promo" />
+          {cat.nom}
         </h1>
         <p className="tnum text-sm text-slate-500">
           {deals?.length ?? 0} offre{(deals?.length ?? 0) > 1 ? 's' : ''} en cours
