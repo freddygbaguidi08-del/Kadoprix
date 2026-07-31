@@ -26,15 +26,22 @@ const attente = (ms) => new Promise((r) => setTimeout(r, ms));
 // Chaque slug de catégorie Kado Prix -> mots-clés AliExpress à rechercher.
 // (La recherche par mot-clé est plus fiable que les categoryId, qui changent.)
 const RECHERCHES = [
-  { slug: 'high-tech',     mots: 'écouteurs bluetooth' },
-  { slug: 'high-tech',     mots: 'chargeur rapide usb c' },
-  { slug: 'high-tech',     mots: 'montre connectée' },
-  { slug: 'maison-jardin', mots: 'organisateur cuisine' },
-  { slug: 'maison-jardin', mots: 'lampe led chambre' },
-  { slug: 'mode',          mots: 'sac à main femme' },
-  { slug: 'mode',          mots: 'montre homme' },
-  { slug: 'beaute-sante',  mots: 'soin visage' },
-  { slug: 'sports-loisirs', mots: 'accessoires fitness' },
+  // slug = SOUS-catégorie ; les produits s'y rangent automatiquement
+  { slug: 'ht-audio',          mots: 'écouteurs bluetooth' },
+  { slug: 'ht-chargeurs',      mots: 'chargeur rapide usb c' },
+  { slug: 'ht-montres',        mots: 'montre connectée' },
+  { slug: 'ht-accessoires',    mots: 'coque téléphone' },
+  { slug: 'mode-sacs',         mots: 'sac à main femme' },
+  { slug: 'mode-montres',      mots: 'montre homme' },
+  { slug: 'mode-femme',        mots: 'robe femme' },
+  { slug: 'mode-chaussures',   mots: 'baskets homme' },
+  { slug: 'maison-cuisine',    mots: 'organisateur cuisine' },
+  { slug: 'maison-luminaires', mots: 'lampe led chambre' },
+  { slug: 'maison-deco',       mots: 'décoration murale' },
+  { slug: 'beaute-soins',      mots: 'soin visage' },
+  { slug: 'beaute-cheveux',    mots: 'accessoire cheveux' },
+  { slug: 'sport-fitness',     mots: 'matériel fitness maison' },
+  { slug: 'sport-outdoor',     mots: 'accessoires camping' },
 ];
 
 // --- Signature TOP : tri des params, concat, HMAC-MD5 encadré du secret, MAJ ---
@@ -67,7 +74,8 @@ async function appel(method, extra) {
 }
 
 async function categorieIds() {
-  const { data } = await db.from('categories').select('id, slug').is('parent_id', null);
+  // Toutes les catégories (racines ET sous-catégories) : on range par sous-cat
+  const { data } = await db.from('categories').select('id, slug');
   return new Map((data ?? []).map((c) => [c.slug, c.id]));
 }
 
