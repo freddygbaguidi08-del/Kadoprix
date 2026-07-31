@@ -8,7 +8,7 @@ const BASE = 'https://kadoprix.vercel.app';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [{ data: deals }, { data: cats }, { data: merchants }] = await Promise.all([
     supabase.from('deals').select('slug, updated_at, categorie_id, merchant_id').eq('statut', 'live').limit(5000),
-    supabase.from('categories').select('slug, id').is('parent_id', null),
+    supabase.from('categories').select('slug, id'),
     supabase.from('merchants').select('slug, id'),
   ]);
 
