@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { filAriane, listeOffres, Jsonld } from '@/lib/seo';
 import { MIN_OFFRES_INDEXABLE } from '@/lib/seo-config';
 import IconeCategorie from '@/components/IconeCategorie';
+import BandeauDestinations from '@/components/BandeauDestinations';
 
 export const revalidate = 900;
 
@@ -122,6 +123,7 @@ export default async function Categorie({ params, searchParams }:
           {deals?.length ?? 0} offre{(deals?.length ?? 0) > 1 ? 's' : ''} en cours
         </p>
       </header>
+      {params.slug === 'voyages' && <BandeauDestinations />}
 
       {/* Onglets de sous-catégories */}
       {(soeurs?.length ?? 0) > 0 && (
