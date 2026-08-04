@@ -85,17 +85,27 @@ async function vols(idVoyage) {
 
 async function hotels(idVoyage) {
   let total = 0;
+  // Dates : arrivée dans 30 jours, 2 nuits (obligatoire pour l'API cache)
+  const j = (n) => new Date(Date.now() + n * 864e5).toISOString().slice(0, 10);
+  const checkIn = j(30);
+  const checkOut = j(32);
+
   for (const v of VILLES_HOTELS) {
     try {
       const url = `https://engine.hotellook.com/api/v2/cache.json`
-        + `?location=${v.iata}&currency=eur&limit=1&token=${TOKEN}`;
+        + `?location=${encodeURIComponent(v.nom)}`
+        + `&checkIn=${checkIn}&checkOut=${checkOut}`
+        + `&currency=eur&limit=1&token=${TOKEN}`;
       const res = await fetch(url, { headers: { 'X-Access-Token': TOKEN } });
       if (!res.ok) { console.error(`  hotel ${v.nom}: HTTP ${res.status}`); continue; }
       const json = await res.json();
       const arr = Array.isArray(json) ? json : (json?.data ?? []);
       const h = arr[0];
-      if (!h?.priceFrom && !h?.priceAvg) continue;
-      const prix = Math.round(Number(h.priceFrom ?? h.priceAvg));
+      const brut = h?.priceFrom ?? h?.pricefrom ?? h?.priceAvg;
+      if (!brut) continue;
+      const prix = Math.round(Number(brut));
+      if (!prix || prix < 5) continue;
+
       await upsertDeal({
         titre: `Hôtels à ${v.nom} dès ${prix} €/nuit`,
         prix,
