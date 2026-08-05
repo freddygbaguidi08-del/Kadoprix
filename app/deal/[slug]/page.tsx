@@ -4,6 +4,8 @@ import { prixFmt } from '@/components/DealCard';
 import Link from 'next/link';
 import BoutonListe from '@/components/BoutonListe';
 import { produitOffre, filAriane, Jsonld } from '@/lib/seo';
+import CompteurVue from '@/components/CompteurVue';
+import BadgeVues from '@/components/BadgeVues';
 
 export const revalidate = 600;
 
@@ -50,6 +52,7 @@ export default async function DealPage({ params }: { params: { slug: string } })
 
   return (
     <article className="mx-auto max-w-3xl">
+      <CompteurVue dealId={d.id} />
       <Jsonld data={[
         produitOffre(d as any),
         filAriane([
@@ -106,6 +109,7 @@ export default async function DealPage({ params }: { params: { slug: string } })
                 &minus;{d.pct_reduction}%
               </span>
             ) : null}
+            <BadgeVues vues={d.vues} seuil={5} className="ml-auto" />
           </div>
 
           {d.faux_prix_suspect && (
