@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 export const dynamic = 'force-dynamic';
 export const metadata = { robots: { index: false, follow: false } };
 
-const TAILLE_LOT = 100;
+const TAILLE_LOT = 50;
 
 const BRUIT = [
   /\b(20\d{2})\s*(new|nouveau|nouvelle)?\b/gi,
