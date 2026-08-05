@@ -39,7 +39,7 @@ async function traiterLot() {
   const db = supabaseAdmin();
   const { data: deals } = await db.from('deals')
     .select('id, titre')
-    .or('titre_nettoye.is.null,titre_nettoye.eq.false')
+    .eq('titre_nettoye', false)
     .eq('source', 'feed')
     .limit(TAILLE_LOT);
 
@@ -63,12 +63,12 @@ export default async function RattrapageTitres({
   const db = supabaseAdmin();
   const { count: restants } = await db.from('deals')
     .select('id', { count: 'exact', head: true })
-    .or('titre_nettoye.is.null,titre_nettoye.eq.false')
+    .eq('titre_nettoye', false)
     .eq('source', 'feed');
 
   const { data: apercu } = await db.from('deals')
     .select('titre')
-    .or('titre_nettoye.is.null,titre_nettoye.eq.false')
+    .eq('titre_nettoye', false)
     .eq('source', 'feed').limit(5);
 
   return (
