@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 import HeaderCompte from '@/components/HeaderCompte';
 import { Bricolage_Grotesque, Inter } from 'next/font/google';
+import MenuCategoriesData from '@/components/MenuCategoriesData';
 
 const display = Bricolage_Grotesque({
   subsets: ['latin'], weight: ['600', '800'], variable: '--font-display', display: 'swap',
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="shrink-0 font-display text-[22px] font-extrabold tracking-tight">
               Kado<span className="text-promo">Prix</span>
             </Link>
+            <MenuCategoriesData />
 
             <form action="/recherche" className="relative flex-1">
               <svg className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
