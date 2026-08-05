@@ -10,6 +10,7 @@
 // Usage : node ingest/aliexpress.mjs
 import crypto from 'node:crypto';
 import { db, upsertDeal } from './lib.mjs';
+import { nettoyerTitre } from './titres.mjs';
 
 const APP_KEY = process.env.ALIEXPRESS_APP_KEY;
 const APP_SECRET = process.env.ALIEXPRESS_APP_SECRET;
@@ -128,7 +129,7 @@ async function run() {
           if ((1 - prix / prixBarre) * 100 < REDUCTION_MIN) continue;
 
           await upsertDeal({
-            titre: p.product_title,
+            titre: nettoyerTitre(p.product_title),
             prix,
             prix_barre: prixBarre,
             devise: DEVISE,
